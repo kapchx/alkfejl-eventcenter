@@ -12,6 +12,6 @@ INSERT INTO event (title, description, status, created_at, start_at, ORGANIZER_I
 INSERT INTO event_locations (events_id, locations_id) VALUES (1, 2);
 INSERT INTO event_locations (events_id, locations_id) VALUES (2, 4);
 
-INSERT INTO participation (attend, created_at, event_id, user_id) VALUES ('ACCEPTED', CURRENT_TIMESTAMP(), 1, 1);
-INSERT INTO participation (attend, created_at, event_id, user_id) VALUES ('REJECTED', CURRENT_TIMESTAMP(), 1, 2);
-INSERT INTO participation (attend, created_at, event_id, user_id) VALUES ('ACCEPTED', CURRENT_TIMESTAMP(), 2, 2);
+INSERT INTO participation (approved, created_at, event_id, user_id) VALUES ('ACCEPTED', CURRENT_TIMESTAMP(), 1, 1);
+INSERT INTO participation (approved, created_at, event_id, user_id) VALUES ('REJECTED', CURRENT_TIMESTAMP(), 1, 2);
+INSERT INTO participation (approved, created_at, event_id, user_id) VALUES ('ACCEPTED', CURRENT_TIMESTAMP(), 2, 2);
