@@ -6,6 +6,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class LocationController {
         return locations;
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @PostMapping("")
     public ResponseEntity<Location> createLocation(@RequestBody Location location){
         Optional<Location> optionalLocation = locationRepository.findOneByNameEqualsIgnoreCase(location.getName());
@@ -39,6 +41,7 @@ public class LocationController {
         return ResponseEntity.ok(createdLocation);
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
     public ResponseEntity deleteLocation(@PathVariable Integer id){
         Optional<Location> optionalLocation = locationRepository.findById(id);

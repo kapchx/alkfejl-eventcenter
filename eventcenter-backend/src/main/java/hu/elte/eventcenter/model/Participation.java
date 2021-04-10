@@ -22,7 +22,7 @@ public class Participation {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Approval approved;
+    private Approval approval;
 
     @Column
     @CreationTimestamp

@@ -10,6 +10,7 @@ import hu.elte.eventcenter.repository.ParticipationRepository;
 import hu.elte.eventcenter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +41,7 @@ public class EventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Event>> getEvents(@RequestParam(required = false) String location) {
+    public ResponseEntity<Iterable<Event>> getEvents() { //@RequestParam(required = false) String location) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<String> roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
@@ -129,6 +130,7 @@ public class EventController {
         return ResponseEntity.ok(savedEvent);
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Integer id) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
