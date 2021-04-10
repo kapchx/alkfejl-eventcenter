@@ -3,8 +3,8 @@ INSERT INTO location (name) VALUES ('Itten');
 INSERT INTO location (name) VALUES ('Ott');
 INSERT INTO location (name) VALUES ('Amott');
 
-INSERT INTO user (name, username, password, role) VALUES ('Adminbácsi', 'admin', 'madmin', 'ADMIN');
-INSERT INTO user (name, username, password, role) VALUES ('Tesztusz', 'test', '123123', 'USER');
+INSERT INTO user (name, username, password, role) VALUES ('Adminbácsi', 'admin', '$2a$10$Xtv0umJn1DDZ3ds5FTWHUOHuwJnRQ0qrYpTA1ANaRl8vdiwo1R1iW', 'ROLE_ADMIN');
+INSERT INTO user (name, username, password, role) VALUES ('Tesztusz', 'test', '$2a$10$QUhsliTs8Ufe9nSQgIwzzeDktWOdDw8WY77lN.3AAXL5vVDI2EoVO', 'ROLE_USER');
 
 INSERT INTO event (title, description, status, created_at, start_at, ORGANIZER_ID) VALUES ('adminisztracio', 'asd', 'ACTIVE', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP(), 1);
 INSERT INTO event (title, description, status, created_at, start_at, ORGANIZER_ID) VALUES ('teszteles', 'hullapelyhes feherho', 'UNPUBLISHED', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP(), 2);

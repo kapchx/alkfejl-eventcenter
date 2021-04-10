@@ -3,17 +3,22 @@ package hu.elte.eventcenter.controller;
 import hu.elte.eventcenter.model.Event;
 import hu.elte.eventcenter.model.Location;
 import hu.elte.eventcenter.model.Participation;
+import hu.elte.eventcenter.model.User;
 import hu.elte.eventcenter.repository.EventRepository;
 import hu.elte.eventcenter.repository.LocationRepository;
 import hu.elte.eventcenter.repository.ParticipationRepository;
 import hu.elte.eventcenter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")
@@ -36,9 +41,21 @@ public class EventController {
 
     @GetMapping("")
     public ResponseEntity<Iterable<Event>> getEvents(@RequestParam(required = false) String location) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
+        if (roles.contains("ROLE_ADMIN")) {
+            return ResponseEntity.ok(eventRepository.findAll());
+        }
+
+        String username = auth.getName();
+        Optional<User> user = userRepository.findByUsername(username);
         Iterable<Event> events;
         events = eventRepository.findAll();
-        return ResponseEntity.ok(events);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get().getEvents());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{eventId}")

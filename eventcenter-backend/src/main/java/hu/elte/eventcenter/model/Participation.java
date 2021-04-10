@@ -36,7 +36,7 @@ public class Participation {
     @JsonIgnore
     private User user;
 
-    private enum Approval{
+    public enum Approval{
         APPLIED, ACCEPTED, REJECTED
     }
 }

@@ -38,7 +38,7 @@ public class User {
     private UserRole role;
 
     public enum UserRole {
-        GUEST, USER, ADMIN
+        ROLE_GUEST, ROLE_USER, ROLE_ADMIN
     }
 
     @OneToMany(mappedBy = "user")
