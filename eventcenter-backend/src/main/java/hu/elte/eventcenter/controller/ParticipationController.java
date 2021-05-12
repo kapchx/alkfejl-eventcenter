@@ -65,9 +65,11 @@ public class ParticipationController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    //itt maradtam
     @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Integer id) {
+    public ResponseEntity deleteParicipation(@PathVariable Integer id) {
         Optional<Participation> optionalParticipation = participationRepository.findById(id);
         if (optionalParticipation.isPresent()) {
             participationRepository.deleteById(id);
