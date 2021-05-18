@@ -1,0 +1,27 @@
+<h1>Create Evenet</h1>
+
+<form (submit)="submit($event)">
+
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" name="title" required/>
+    </mat-form-field>
+    
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>Location</mat-label>
+        <mat-select required matInput type="text" name="location">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput type="text" name="description"></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary">Submit</button>
+    <button mat-flat-button color="secondary">Cancel</button>
+    
+</form>
+
