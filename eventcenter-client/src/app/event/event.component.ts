@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../domain/event'
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-event',
@@ -8,19 +9,14 @@ import { Event } from '../domain/event'
 })
 export class EventComponent implements OnInit {
 
-  events: Event[] = [{
-    title: 'Deszkazas',
-    description: 'Kell hozza deszka',
-    location: 'Itt'
-  }, {
-    title: 'Biciklizes',
-    description: 'Meglepo, de ehez pedig bicikli kell',
-    location: 'Ott'
-  }]
+  events!: Event[];
 
-  constructor() { }
+  constructor(
+    private eventService: EventService
+  ) { }
 
   ngOnInit(): void {
+    this.events = this.eventService.getEvents();
   }
 
 }

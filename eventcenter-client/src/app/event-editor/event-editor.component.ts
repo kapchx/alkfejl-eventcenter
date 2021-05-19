@@ -1,4 +1,8 @@
+import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Event } from '../domain/event'
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-event-editor',
@@ -7,13 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventEditorComponent implements OnInit {
 
-  constructor() { }
+  
+  eventForm: FormGroup =this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(2) ]],
+    location: ['' ,[Validators.required]],
+    description: ['']
+  })
 
-  ngOnInit(): void {
+  get title(): FormControl {
+    return this.eventForm.get('title') as FormControl;
   }
 
-  submit(e : any) : void {
-    console.log(e)
+  get location(): FormControl {
+    return this.eventForm.get('location') as FormControl;
+  }
+
+  constructor( private fb: FormBuilder, private eventService: EventService) {}
+
+  ngOnInit(): void {}
+
+  submit() : void {
+    if(this.eventForm.valid){
+      this.eventService.createEvent(this.eventForm.value);
+    }
   }
 
 }

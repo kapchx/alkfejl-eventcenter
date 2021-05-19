@@ -7,28 +7,34 @@ import { EventComponent } from './event/event.component';
 import { MenuComponent } from './menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Angular material
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { EventEditorComponent } from './event-editor/event-editor.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TitleErrorsPipe } from './title-errors.pipe';
+import { LocationErrorsPipe } from './location-errors.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventComponent,
     MenuComponent,
-    EventEditorComponent
+    EventEditorComponent,
+    LocationErrorsPipe,
+    TitleErrorsPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     //Angular material
     MatToolbarModule,
     MatIconModule,

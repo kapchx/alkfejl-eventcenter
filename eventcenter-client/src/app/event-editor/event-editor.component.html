@@ -1,23 +1,47 @@
 <h1>Create Evenet</h1>
 
-<form (submit)="submit($event)">
+<form [formGroup]="eventForm" (ngSubmit)= "submit()">
 
     <mat-form-field class ="full-width" appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput type="text" name="title" required/>
+        <input 
+            matInput 
+            type="text" 
+            name="title" 
+            required
+            minlength="2"
+            formControlName="title"
+        />
+        <mat-error *ngIf="title.invalid">
+           {{title.errors! | titleErrors}}
+        </mat-error>
     </mat-form-field>
     
     <mat-form-field class ="full-width" appearance="fill">
         <mat-label>Location</mat-label>
-        <mat-select required matInput type="text" name="location">
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+        <mat-select 
+            required 
+            matInput 
+            type="text" 
+            name="location"
+            formControlName="location"
+        >
+            <mat-option value="one">First option</mat-option>
+            <mat-option value="two">Second option</mat-option>
         </mat-select>
+        <mat-error *ngIf="location.invalid">
+            {{location.errors! | locationErrors}}
+        </mat-error>
     </mat-form-field>
     
     <mat-form-field class ="full-width" appearance="fill">
         <mat-label>Textarea</mat-label>
-        <textarea matInput type="text" name="description"></textarea>
+        <textarea
+            matInput  
+            name="description"
+            formControlName="description"
+        >
+        </textarea>
     </mat-form-field>
 
     <button mat-flat-button color="primary">Submit</button>
