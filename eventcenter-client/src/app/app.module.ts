@@ -20,6 +20,10 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TitleErrorsPipe } from './title-errors.pipe';
 import { LocationErrorsPipe } from './location-errors.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
+import { EventDetailsComponent } from './event-details/event-details.component';
+import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import { LocationErrorsPipe } from './location-errors.pipe';
     EventEditorComponent,
     LocationErrorsPipe,
     TitleErrorsPipe,
+    EventDetailsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,9 @@ import { LocationErrorsPipe } from './location-errors.pipe';
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    HttpClientModule
     
   ],
   providers: [],

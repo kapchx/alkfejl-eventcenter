@@ -11,7 +11,33 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <p>{{ event.description }}</p>
+        <mat-action-row>
+            <button 
+                mat-icon-button 
+                color="primary" 
+                (click) = "startEditEvent(event)"
+            >
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button 
+                mat-icon-button 
+                color="primary" 
+                [routerLink]="['/','events', event.id]"
+            >
+                <mat-icon>description</mat-icon>
+            </button>
+        </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>
 
-<app-event-editor></app-event-editor>
+
+<button 
+    mat-fab
+    color="primary"
+    aria-label="Create new Event"
+    class="add-button"
+    (click) = "startCreateEvent()" 
+>
+    <mat-icon>add</mat-icon>
+</button>
+

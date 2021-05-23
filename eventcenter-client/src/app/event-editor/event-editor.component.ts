@@ -1,8 +1,9 @@
 import { formatCurrency } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Event } from '../domain/event'
-import { EventService } from '../event.service';
+import { EventService } from '../core/event.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-event-editor',
@@ -26,14 +27,38 @@ export class EventEditorComponent implements OnInit {
     return this.eventForm.get('location') as FormControl;
   }
 
-  constructor( private fb: FormBuilder, private eventService: EventService) {}
+  constructor( 
+    private fb: FormBuilder, 
+    private eventService: EventService, 
+    @Optional() public dialogRef?: MatDialogRef<EventEditorComponent>,
+    @Inject(MAT_DIALOG_DATA) @Optional() private eventToEdit?: Event
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.eventToEdit){
+      this.eventForm.reset({
+        title: this.eventToEdit.title,
+        description: this.eventToEdit.description,
+        location: this.eventToEdit.location
+      })
+    }
+  }
 
   submit() : void {
     if(this.eventForm.valid){
-      this.eventService.createEvent(this.eventForm.value);
+      
+      if(this.eventToEdit){
+        this.eventService.editEvent(this.eventToEdit,this.eventForm.value);
+      }else{
+        this.eventService.createEvent(this.eventForm.value);
+      }
+      
+      this.dialogRef?.close();
     }
+  }
+
+  close() : void {
+      this.dialogRef?.close();
   }
 
 }

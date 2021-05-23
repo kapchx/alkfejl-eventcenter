@@ -1,6 +1,6 @@
-<h1>Create Evenet</h1>
+<h1 mat-dialog-title>Create Evenet</h1>
 
-<form [formGroup]="eventForm" (ngSubmit)= "submit()">
+<form mat-dialog-content [formGroup]="eventForm" (ngSubmit)= "submit()">
 
     <mat-form-field class ="full-width" appearance="fill">
         <mat-label>Title</mat-label>
@@ -43,9 +43,18 @@
         >
         </textarea>
     </mat-form-field>
-
-    <button mat-flat-button color="primary">Submit</button>
-    <button mat-flat-button color="secondary">Cancel</button>
-    
 </form>
+
+<div mat-dialog-actions>
+    <button (click)="submit()" mat-flat-button color="primary">Submit</button>
+    <button 
+        *ngIf="dialogRef"
+        (click)="close()" 
+        mat-flat-button 
+        color="secondary" 
+        type="button"
+    >
+        Cancel
+    </button>
+</div>
 
