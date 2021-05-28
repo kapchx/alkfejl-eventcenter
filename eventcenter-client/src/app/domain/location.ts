@@ -1,5 +1,4 @@
 export interface Location {
     id: number;
     name: string;
-    events: Event[]
 }

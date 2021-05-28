@@ -2,30 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
+import { UserService } from '../core/user.service';
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  form: FormGroup = this.fb.group({
+  userForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
 
   get username(): AbstractControl {
-    return this.form.get('username') as AbstractControl;
+    return this.userForm.get('username') as AbstractControl;
   }
 
   get password(): AbstractControl {
-    return this.form.get('password') as AbstractControl;
+    return this.userForm.get('password') as AbstractControl;
   }
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router,
   ) { }
 
@@ -33,11 +35,9 @@ export class LoginComponent implements OnInit {
   }
 
   async submit(): Promise<void> {
-    if (!this.form.valid) {
-      return;
+    if(this.userForm.valid){ 
+        await this.userService.createUser(this.userForm.value);
     }
-    await this.authService.login(this.form.value);
-    this.router.navigate(['/events']);
   }
 
 }

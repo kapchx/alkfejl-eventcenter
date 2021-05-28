@@ -23,23 +23,46 @@
             required 
             matInput 
             type="text" 
-            name="location"
-            formControlName="location"
+            name="locations"
+            formControlName="locations"
         >
-            <mat-option value="one">First option</mat-option>
-            <mat-option value="two">Second option</mat-option>
+            <mat-option 
+                *ngFor="let location of locations | async" 
+                [value] =  "location"
+            >
+                {{ location.name }}
+            </mat-option>
+            <button 
+                [routerLink]="['/', 'locations']" 
+                mat-button 
+                color="primary"
+                class ="full-width"
+            >
+                <mat-icon>add</mat-icon>
+                Add location
+            </button>
         </mat-select>
         <mat-error *ngIf="location.invalid">
             {{location.errors! | locationErrors}}
         </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field class ="full-width" appearance="fill">
-        <mat-label>Textarea</mat-label>
+        <mat-label>Description</mat-label>
         <textarea
             matInput  
             name="description"
             formControlName="description"
+        >
+        </textarea>
+    </mat-form-field>
+
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>startAt</mat-label>
+        <textarea
+            matInput  
+            name="startAt"
+            formControlName="startAt"
         >
         </textarea>
     </mat-form-field>

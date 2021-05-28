@@ -8,6 +8,8 @@
     </button>
 
     <span>Eventcenter</span>
+    <span class="spacer"></span>
+  <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
 
 </mat-toolbar>
 

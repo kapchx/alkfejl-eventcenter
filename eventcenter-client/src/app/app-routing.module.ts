@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventComponent } from './event/event.component';
+import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
-import { MenuComponent } from './menu/menu.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [{
   path: 'events',
@@ -15,8 +16,15 @@ const routes: Routes = [{
   component: EventDetailsComponent,
   canActivate: [AuthGuard]
 },{
+  path: 'locations',
+  component:  LocationComponent,
+  canActivate: [AuthGuard]
+},{
   path: 'login',
   component: LoginComponent
+},{
+  path: 'register',
+  component: RegisterComponent
 },{
   path: '**',
   redirectTo: '/events'

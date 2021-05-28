@@ -11,7 +11,7 @@ import { EventEditorComponent } from '../event-editor/event-editor.component';
 })
 export class EventComponent implements OnInit {
 
-  events!: Event[];
+  events!: Promise<Event[]>;
 
   constructor(
     private eventService: EventService,
@@ -19,22 +19,29 @@ export class EventComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.events = this.eventService.getEvents();
+    this.getEvents();
   }
 
-  startCreateEvent(): void{
-    this.dialog.open(EventEditorComponent,{
+  async startCreateEvent(): Promise<void>{
+    const dialogRef = this.dialog.open(EventEditorComponent,{
       height: '400px'
     })
+    await dialogRef.afterClosed().toPromise();
+    this.getEvents();
   }
 
   
-  startEditEvent(event: Event): void{
-    this.dialog.open(EventEditorComponent,{
+  async startEditEvent(event: Event): Promise<void>{
+    const dialogRef = this.dialog.open(EventEditorComponent,{
       height: '400px',
-      data: event
-    })
-    
+      data: event,
+    });
+    await dialogRef.afterClosed().toPromise();
+    this.getEvents();
+  }
+
+  private getEvents(): void {
+    this.events = this.eventService.getEvents();
   }
 
 }

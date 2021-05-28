@@ -32,7 +32,7 @@ public class LocationController {
     }
 
     //functioning as expected
-    @Secured({ "ROLE_ADMIN" })
+    //@Secured({ "ROLE_ADMIN" })
     @PostMapping("")
     public ResponseEntity<Location> postLocation(@RequestBody Location location){
         Optional<Location> optionalLocation = locationRepository.findOneByNameEqualsIgnoreCase(location.getName());

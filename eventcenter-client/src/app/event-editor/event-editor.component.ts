@@ -1,9 +1,10 @@
-import { formatCurrency } from '@angular/common';
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Event } from '../domain/event'
 import { EventService } from '../core/event.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LocationService } from '../core/location.service';
+import { Location } from '../domain/location'
 
 @Component({
   selector: 'app-event-editor',
@@ -12,10 +13,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class EventEditorComponent implements OnInit {
 
-  
+  locations!: Promise<Location[]>;
+
   eventForm: FormGroup =this.fb.group({
     title: ['', [Validators.required, Validators.minLength(2) ]],
-    location: ['' ,[Validators.required]],
+    locations: ['' ,[Validators.required]],
+    startAt: ['' ,[Validators.required]],
     description: ['']
   })
 
@@ -24,41 +27,56 @@ export class EventEditorComponent implements OnInit {
   }
 
   get location(): FormControl {
-    return this.eventForm.get('location') as FormControl;
+    return this.eventForm.get('locations') as FormControl;
   }
+  
+  
+
+ 
+  
+  
 
   constructor( 
     private fb: FormBuilder, 
     private eventService: EventService, 
+    private locationService: LocationService,
     @Optional() public dialogRef?: MatDialogRef<EventEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) @Optional() private eventToEdit?: Event
-  ) {}
+    @Inject(MAT_DIALOG_DATA) @Optional() private eventToEdit?: Event,
+   
+  ) {
+    this.getLocations();
+  }
 
   ngOnInit(): void {
     if(this.eventToEdit){
       this.eventForm.reset({
         title: this.eventToEdit.title,
-        description: this.eventToEdit.description,
-        location: this.eventToEdit.location
+        descriptions: this.eventToEdit.description,
+       // locations: this.eventToEdit.locations
       })
     }
   }
 
-  submit() : void {
+  async submit() : Promise<void> {
     if(this.eventForm.valid){
       
       if(this.eventToEdit){
-        this.eventService.editEvent(this.eventToEdit,this.eventForm.value);
+        await this.eventService.editEvent(this.eventToEdit,this.eventForm.value);
       }else{
-        this.eventService.createEvent(this.eventForm.value);
+        await this.eventService.createEvent(this.eventForm.value);
       }
       
       this.dialogRef?.close();
     }
   }
 
+
   close() : void {
       this.dialogRef?.close();
+  }
+
+  private getLocations(): void {
+    this.locations = this.locationService.getLocations();
   }
 
 }

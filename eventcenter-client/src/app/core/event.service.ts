@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Event } from '../domain/event'
 
@@ -10,21 +11,21 @@ export class EventService {
 
   events: Event[] = []
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  getEvents(): Event[] {
-    return this.events
+  async getEvents(): Promise<Event[]> {
+    return await this.httpClient.get('/backend/events').toPromise() as Event[];
   }
 
-  createEvent(event: Event): void {
-    this.events.push(event);
+  async createEvent(event: Event): Promise<Event> {
+    return await this.httpClient.post('/backend/events', event).toPromise() as Event;
   }
 
-  editEvent(eventToEdit: Event, value: Event): void{
-      this.events.splice(this.events.indexOf(eventToEdit), 1, value)
+  async editEvent(eventToEdit: Event, value: Event): Promise<Event>{
+      return await this.httpClient.patch(`/backend/events/${eventToEdit.id}`, value).toPromise() as Event;
   }
 
-  getEvent(eventId: number): Event {
-    return this.events.find((event) => event.id === eventId) as Event;
+  async getEvent(eventId: number): Promise<Event> {
+    return await this.httpClient.get(`/backend/events/${eventId}`).toPromise() as Event;
   }
 }

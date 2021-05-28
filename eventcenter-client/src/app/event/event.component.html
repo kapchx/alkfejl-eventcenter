@@ -1,13 +1,13 @@
 <p>event works!</p>
 
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let event of events" >
+    <mat-expansion-panel *ngFor="let event of events | async">
         <mat-expansion-panel-header>
             <mat-panel-title>
                {{ event.title }}
             </mat-panel-title>
             <mat-panel-description>
-                {{ event.location }}
+                {{ event.locations }}
             </mat-panel-description>
         </mat-expansion-panel-header>
         <p>{{ event.description }}</p>

@@ -23,7 +23,11 @@ import { LocationErrorsPipe } from './location-errors.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/auth.interceptor';
+import { LocationComponent } from './location/location.component';
+import { LocationEditorComponent } from './location-editor/location-editor.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import { HttpClientModule } from '@angular/common/http';
     TitleErrorsPipe,
     EventDetailsComponent,
     LoginComponent,
+    LocationComponent,
+    LocationEditorComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,13 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,17 +10,18 @@ import { Event } from '../domain/event'
 })
 export class EventDetailsComponent implements OnInit {
 
-  event: Event;
+  event?: Event;
 
   constructor( 
     private eventService: EventService,
     private route: ActivatedRoute
   ) {
-    const eventId = parseInt(this.route.snapshot.paramMap.get('eventId') as string);
-    this.event = this.eventService.getEvent(eventId);
+    
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const eventId = parseInt(this.route.snapshot.paramMap.get('eventId') as string);
+    this.event = await this.eventService.getEvent(eventId);
   }
 
 }

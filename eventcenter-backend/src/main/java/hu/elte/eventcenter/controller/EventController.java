@@ -79,7 +79,7 @@ public class EventController {
 
         event.setStatus(Event.Status.ACTIVE);
 
-        List<Location> locations = new ArrayList<>();
+       /* List<Location> locations = new ArrayList<>();
         for (Location location : event.getLocations()) {
             if (location.getId() == null) {
                 return ResponseEntity.badRequest().build();
@@ -92,9 +92,9 @@ public class EventController {
             } else {
                 locations.add(optionalLocation.get());
             }
-        }
+        }*/
 
-        event.setLocations(locations);
+        //event.setLocations(locations);
         event.setOrganizer(authUser());
         Event savedEvent = eventRepository.save(event);
 

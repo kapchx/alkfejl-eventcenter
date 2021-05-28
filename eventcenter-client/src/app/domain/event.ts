@@ -1,16 +1,13 @@
 import { Participation } from "./paticipation";
 import { User } from "./user";
+import { Location } from "./location";
 
 export interface Event {
     id: number;
     title: string;
     description: string;
-    private: Status;
-    createdAt: string;
     startAt: string;
-    user: User;
-    paricipation: Participation[];
-    location: Location[];
+    locations: Location[];
 }
 
 
