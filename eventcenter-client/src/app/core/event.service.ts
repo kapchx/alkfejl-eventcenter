@@ -28,4 +28,8 @@ export class EventService {
   async getEvent(eventId: number): Promise<Event> {
     return await this.httpClient.get(`/backend/events/${eventId}`).toPromise() as Event;
   }
+
+  async deleteEvent(eventToDelete: Event): Promise<void>{
+    await this.httpClient.delete(`/backend/events/${eventToDelete.id}`).toPromise();
+  }
 }

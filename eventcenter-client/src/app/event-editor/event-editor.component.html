@@ -18,36 +18,6 @@
     </mat-form-field>
     
     <mat-form-field class ="full-width" appearance="fill">
-        <mat-label>Location</mat-label>
-        <mat-select 
-            required 
-            matInput 
-            type="text" 
-            name="locations"
-            formControlName="locations"
-        >
-            <mat-option 
-                *ngFor="let location of locations | async" 
-                [value] =  "location"
-            >
-                {{ location.name }}
-            </mat-option>
-            <button 
-                [routerLink]="['/', 'locations']" 
-                mat-button 
-                color="primary"
-                class ="full-width"
-            >
-                <mat-icon>add</mat-icon>
-                Add location
-            </button>
-        </mat-select>
-        <mat-error *ngIf="location.invalid">
-            {{location.errors! | locationErrors}}
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class ="full-width" appearance="fill">
         <mat-label>Description</mat-label>
         <textarea
             matInput  

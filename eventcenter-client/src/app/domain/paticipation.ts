@@ -1,9 +1,9 @@
 import { User } from "./user";
+import { Event } from "./event";
 
 export interface Participation{
     id: number;
     approval: Approval;
-    createdAt: string;
     event: Event;
     user: User;
 }

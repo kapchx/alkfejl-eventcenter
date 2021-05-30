@@ -41,7 +41,7 @@ public class Event {
     private LocalDateTime createdAt;
 
     @Column
-    private LocalDateTime startAt;
+    private String startAt;
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

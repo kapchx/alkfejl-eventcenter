@@ -13,11 +13,14 @@ import { Location } from '../domain/location'
 })
 export class EventEditorComponent implements OnInit {
 
-  locations!: Promise<Location[]>;
+  //locations!: Promise<Location[]>;
+
+
+  
 
   eventForm: FormGroup =this.fb.group({
     title: ['', [Validators.required, Validators.minLength(2) ]],
-    locations: ['' ,[Validators.required]],
+    //locations: ['' ,[Validators.required]],
     startAt: ['' ,[Validators.required]],
     description: ['']
   })
@@ -26,9 +29,9 @@ export class EventEditorComponent implements OnInit {
     return this.eventForm.get('title') as FormControl;
   }
 
-  get location(): FormControl {
-    return this.eventForm.get('locations') as FormControl;
-  }
+  //get location(): FormControl {
+   // return this.eventForm.get('locations') as FormControl;
+  //}
   
   
 
@@ -44,7 +47,7 @@ export class EventEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) @Optional() private eventToEdit?: Event,
    
   ) {
-    this.getLocations();
+    //this.getLocations();
   }
 
   ngOnInit(): void {
@@ -75,8 +78,43 @@ export class EventEditorComponent implements OnInit {
       this.dialogRef?.close();
   }
 
-  private getLocations(): void {
-    this.locations = this.locationService.getLocations();
-  }
+  //private getLocations(): void {
+   // this.locations = this.locationService.getLocations();
+  //}
+
+  /*
+   <form (submit)="addLocation()">
+        <mat-form-field class ="full-width" appearance="fill">
+            <mat-label>Location</mat-label>
+            <mat-select 
+                required 
+                matInput 
+                type="text" 
+                name="locations"
+                formControlName="locations"
+            >
+                <mat-option 
+                    *ngFor="let location of locations | async" 
+                    [value] =  "location"
+                >
+                    {{ location.name }}
+                </mat-option>
+                <button 
+                    [routerLink]="['/', 'locations']" 
+                    mat-button 
+                    color="primary"
+                    class ="full-width"
+                >
+                    <mat-icon>add</mat-icon>
+                    Add location
+                </button>
+            </mat-select>
+            <mat-error *ngIf="location.invalid">
+                {{location.errors! | locationErrors}}
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+  */
 
 }

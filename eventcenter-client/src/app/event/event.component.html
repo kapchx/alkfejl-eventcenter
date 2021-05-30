@@ -26,6 +26,18 @@
             >
                 <mat-icon>description</mat-icon>
             </button>
+            <button 
+                mat-icon-button 
+                (click)="deleteEvent(event)"
+            >
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button 
+                mat-icon-button 
+                (click)="ParticipateToEvent(user, event)"
+            >
+                <mat-icon>add</mat-icon>
+            </button>   
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

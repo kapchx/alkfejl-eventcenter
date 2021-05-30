@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/participation")
+@RequestMapping("/participations")
 public class ParticipationController {
 
     @Autowired

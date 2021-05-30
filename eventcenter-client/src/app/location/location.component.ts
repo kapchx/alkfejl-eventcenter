@@ -35,7 +35,7 @@ export class LocationComponent implements OnInit {
     this.getLocations();
   }
 
-  async deleteIssue(location: Location): Promise<void> {
+  async deleteLocation(location: Location): Promise<void> {
     await this.locationService.deleteLocation(location);
     this.getLocations();
   }
