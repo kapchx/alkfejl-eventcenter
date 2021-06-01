@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Participation } from '../domain/paticipation';
+import { Event } from '../domain/event'
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class ParticipationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async createParticipation(participationToCreate: Participation): Promise<Participation> {
-    return await this.httpClient.post('/backend/participations', participationToCreate).toPromise() as Participation;
+  async createParticipation(paricipationEvent: Event): Promise<Participation> {
+    return await this.httpClient.post('/backend/participations', {event:paricipationEvent}).toPromise() as Participation;
   }
 
   async editUser(participationToEdit: Participation, value: Participation): Promise<Participation>{

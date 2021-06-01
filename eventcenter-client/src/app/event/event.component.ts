@@ -17,7 +17,6 @@ import { AuthService } from '../core/auth.service';
 export class EventComponent implements OnInit {
 
   events!: Promise<Event[]>;
-  user!: User; 
   
 
   constructor(
@@ -29,7 +28,6 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEvents();
-    this.getCurrentUser();
   }
 
   async startCreateEvent(): Promise<void>{
@@ -54,19 +52,13 @@ export class EventComponent implements OnInit {
     this.events = this.eventService.getEvents();
   }
 
-  private getCurrentUser(): void {
-    this.user = this.authService.user;
-  }
-
   async deleteEvent(event: Event): Promise<void> {
     await this.eventService.deleteEvent(event);
     this.getEvents();
   }
 
-  async ParticipateToEvent(user: User, event: Event): Promise<void>{
-    let newparticipation = {user: user, event: event, id: 1, approval: Approval.APPLIED};
-    await this.participationService.createParticipation(newparticipation);
-
+  async ParticipateToEvent(event: Event): Promise<void>{
+    await this.participationService.createParticipation(event);
   }
 
 }

@@ -13,14 +13,11 @@ import { Location } from '../domain/location'
 })
 export class EventEditorComponent implements OnInit {
 
-  //locations!: Promise<Location[]>;
-
-
-  
+  locations!: Promise<Location[]>;
 
   eventForm: FormGroup =this.fb.group({
     title: ['', [Validators.required, Validators.minLength(2) ]],
-    //locations: ['' ,[Validators.required]],
+    locations: ['' ,[Validators.required]],
     startAt: ['' ,[Validators.required]],
     description: ['']
   })
@@ -29,15 +26,9 @@ export class EventEditorComponent implements OnInit {
     return this.eventForm.get('title') as FormControl;
   }
 
-  //get location(): FormControl {
-   // return this.eventForm.get('locations') as FormControl;
-  //}
-  
-  
-
- 
-  
-  
+  get location(): FormControl {
+    return this.eventForm.get('locations') as FormControl;
+  }
 
   constructor( 
     private fb: FormBuilder, 
@@ -47,7 +38,7 @@ export class EventEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) @Optional() private eventToEdit?: Event,
    
   ) {
-    //this.getLocations();
+    this.getLocations();
   }
 
   ngOnInit(): void {
@@ -55,14 +46,14 @@ export class EventEditorComponent implements OnInit {
       this.eventForm.reset({
         title: this.eventToEdit.title,
         descriptions: this.eventToEdit.description,
-       // locations: this.eventToEdit.locations
+        locations: this.eventToEdit.locations
       })
     }
   }
 
   async submit() : Promise<void> {
     if(this.eventForm.valid){
-      
+      console.log(this.eventForm.value);
       if(this.eventToEdit){
         await this.eventService.editEvent(this.eventToEdit,this.eventForm.value);
       }else{
@@ -78,9 +69,9 @@ export class EventEditorComponent implements OnInit {
       this.dialogRef?.close();
   }
 
-  //private getLocations(): void {
-   // this.locations = this.locationService.getLocations();
-  //}
+  private getLocations(): void {
+    this.locations = this.locationService.getLocations();
+  }
 
   /*
    <form (submit)="addLocation()">

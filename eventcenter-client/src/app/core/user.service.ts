@@ -19,8 +19,8 @@ export class UserService {
     return await this.httpClient.post('/backend/users/register', user).toPromise() as User;
   }
 
-  async editUser(userToEdit: User, value: User): Promise<User>{
-      return await this.httpClient.patch(`/backend/users/${userToEdit.id}`, value).toPromise() as User;
+  async editUser(value: User): Promise<User>{
+      return await this.httpClient.patch('/backend/users', value).toPromise() as User;
   }
 
   async deleteUser(userToDelete: User): Promise<void>{

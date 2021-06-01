@@ -10,6 +10,7 @@
     <span>Eventcenter</span>
     <span class="spacer"></span>
   <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
+  <button *ngIf="isLoggedIn" mat-icon-button  [routerLink]="['/', 'Profile_Settings']"><mat-icon>manage_accounts</mat-icon></button>
 
 </mat-toolbar>
 

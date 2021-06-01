@@ -6,8 +6,8 @@
             <mat-panel-title>
                {{ event.title }}
             </mat-panel-title>
-            <mat-panel-description>
-                {{ event.locations }}
+            <mat-panel-description *ngFor="let location of event.locations">
+                {{ location.name }}
             </mat-panel-description>
         </mat-expansion-panel-header>
         <p>{{ event.description }}</p>
@@ -34,7 +34,7 @@
             </button>
             <button 
                 mat-icon-button 
-                (click)="ParticipateToEvent(user, event)"
+                (click)="ParticipateToEvent(event)"
             >
                 <mat-icon>add</mat-icon>
             </button>   

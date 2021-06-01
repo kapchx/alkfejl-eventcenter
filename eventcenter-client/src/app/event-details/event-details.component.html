@@ -3,7 +3,9 @@
     <h2> Description</h2>
     <p>{{ event.description }}</p>
     <h2>Location</h2>
-    <p>{{ event.locations }}</p>
+    <p *ngFor="let location of event.locations">
+        {{ location.name }}
+    </p>
     <h2>Starts at</h2>
     <p>{{ event.startAt }}</p>
 </ng-container>

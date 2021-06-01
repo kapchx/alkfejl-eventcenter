@@ -42,8 +42,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity modifyUser(@RequestBody User user, @PathVariable Integer id) {
+    @PatchMapping("")
+    public ResponseEntity modifyUser(@RequestBody User user) {
+        Integer id = authUser().getId();
 
         Optional<User> optionalUser = userRepository.findById(id);
 
@@ -89,6 +90,19 @@ public class UserController {
             return ResponseEntity.notFound().build();
 
         }
+    }
+    public User authUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User user = optionalUser.get();
+        return user;
+    }
+
+    public List<String> authUserRoles() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        return roles;
     }
 }
 

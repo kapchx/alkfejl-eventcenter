@@ -5,11 +5,11 @@ import { AuthService } from '../core/auth.service';
 import { UserService } from '../core/user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-user-editor',
+  templateUrl: './user-editor.component.html',
+  styleUrls: ['./user-editor.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class UserEditorComponent implements OnInit {
 
   userForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +37,10 @@ export class RegisterComponent implements OnInit {
 
   async submit(): Promise<void> {
     if(this.userForm.valid){ 
-        await this.userService.createUser(this.userForm.value);
-        this.router.navigate(['/login']);
+        console.log(this.userForm.value)
+        await this.userService.editUser(this.userForm.value);
+        await this.authService.login(this.userForm.value);
+        this.router.navigate(['/Events']);
     }
   }
 

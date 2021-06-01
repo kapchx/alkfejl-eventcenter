@@ -28,6 +28,8 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { LocationComponent } from './location/location.component';
 import { LocationEditorComponent } from './location-editor/location-editor.component';
 import { RegisterComponent } from './register/register.component';
+import { UserEditorComponent } from './user-editor/user-editor.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { RegisterComponent } from './register/register.component';
     LocationComponent,
     LocationEditorComponent,
     RegisterComponent,
+    UserEditorComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,

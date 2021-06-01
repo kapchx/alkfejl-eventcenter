@@ -20,6 +20,7 @@ const TokenStorageKey = "token";
 export class AuthService {
 
   private currentUser: User | null = null;
+  private user1!: User;
 
   get user(): User {
     if(!this.currentUser){
@@ -29,6 +30,16 @@ export class AuthService {
     }
     return this.currentUser as User;
   }
+
+  public getCurrentUser(): User {
+   /* const ru : User = {id: this.currentUser!.id,
+      name: this.currentUser!.name,
+      username: this.currentUser!.username,
+      password: 'string',
+      role: UserRole.ROLE_GUEST}*/
+    return this.user1;
+  }
+
 
   private currentToken: string | null = null;
 
@@ -53,7 +64,12 @@ export class AuthService {
     const user = await this.httpClient
     .post<LoginResponse>('/backend/api/auth', loginRequest)
     .toPromise();
+    
+    
     this.setUser(user);
+    console.log(this.isAdmin);
+    this.user1 = {id: 1, name: this.user.name, username: this.user.username, password: this.user.password, role: this.user.role };
+
   }
 
   logout(): void {
