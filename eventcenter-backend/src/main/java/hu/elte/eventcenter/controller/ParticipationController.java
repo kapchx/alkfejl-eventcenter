@@ -65,16 +65,17 @@ public class ParticipationController {
 
         participation.setApproval(Participation.Approval.APPLIED);
         participation.setUser(authUser());
+        participation.setUsername(authUser().getUsername());
         participationRepository.save(participation);
         return ResponseEntity.ok(participation);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Participation> modifyApproval(@RequestBody Participation.Approval approval, @PathVariable Integer id){
+    public ResponseEntity<Participation> modifyApproval(@RequestBody Participation participation, @PathVariable Integer id){
         Optional<Participation> optionalParticipation = participationRepository.findById(id);
         if (optionalParticipation.isPresent()) {
             Participation editedParticipation = optionalParticipation.get();
-            editedParticipation.setApproval(approval);
+            editedParticipation.setApproval(participation.getApproval());
             participationRepository.save(editedParticipation);
             return ResponseEntity.ok(editedParticipation);
         } else {

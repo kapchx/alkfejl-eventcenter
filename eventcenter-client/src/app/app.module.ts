@@ -30,6 +30,8 @@ import { LocationEditorComponent } from './location-editor/location-editor.compo
 import { RegisterComponent } from './register/register.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { EventsComponent } from './events/events.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { EventsComponent } from './events/events.component';
     MatSelectModule,
     MatInputModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatChipsModule
     
   ],
   providers: [

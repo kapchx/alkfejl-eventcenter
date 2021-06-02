@@ -1,1 +1,33 @@
 <p>events works!</p>
+<mat-accordion>
+    <mat-card *ngFor="let event of events | async">
+        <mat-card-header>
+            <mat-card-title color="red">
+                {{ event.title }}
+            </mat-card-title>
+
+            <mat-card-subtitle *ngFor="let location of event.locations">
+                {{ location.name }}
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+           <p>"hello"</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button 
+                mat-icon-button 
+                (click)="ParticipateToEvent(event)"
+            >
+                <mat-icon>add</mat-icon>
+            </button>   
+            <mat-chip-list >
+                <mat-chip *ngFor="let participation of event.participations">
+                {{participation.username}}
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card-actions>
+    </mat-card>
+    
+</mat-accordion>

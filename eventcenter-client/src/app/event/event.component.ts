@@ -49,7 +49,7 @@ export class EventComponent implements OnInit {
   }
 
   private getEvents(): void {
-    this.events = this.eventService.getEvents();
+    this.events = this.eventService.getMyEvents();
   }
 
   async deleteEvent(event: Event): Promise<void> {
@@ -59,6 +59,12 @@ export class EventComponent implements OnInit {
 
   async ParticipateToEvent(event: Event): Promise<void>{
     await this.participationService.createParticipation(event);
+  }
+  async SetParticipationStatusToAccepted(participationToEdit: Participation): Promise<void>{
+    await this.participationService.SetParticipationStatusToAccepted(participationToEdit);
+  }
+  async SetParticipationStatusToDenied(participationToEdit: Participation): Promise<void>{
+    await this.participationService.SetParticipationStatusToDenied(participationToEdit);
   }
 
 }

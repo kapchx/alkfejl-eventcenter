@@ -8,6 +8,7 @@ export interface Event {
     description: string;
     startAt: string;
     locations: Location[];
+    participations: Participation[];
 }
 
 

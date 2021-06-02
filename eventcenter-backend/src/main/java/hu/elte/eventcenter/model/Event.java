@@ -48,7 +48,7 @@ public class Event {
     private User organizer;
 
     @OneToMany(mappedBy = "event")
-    private List<Participation> participation;
+    private List<Participation> participations;
 
     @ManyToMany
     @JoinTable

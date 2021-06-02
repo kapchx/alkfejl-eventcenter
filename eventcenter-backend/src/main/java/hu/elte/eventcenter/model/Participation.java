@@ -23,10 +23,13 @@ public class Participation {
     private Integer id;
 
     @Column
+    private String username;
+
+    @Column
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Approval approval;
 

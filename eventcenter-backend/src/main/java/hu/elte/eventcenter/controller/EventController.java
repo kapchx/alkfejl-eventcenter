@@ -42,16 +42,19 @@ public class EventController {
 
 
     //functioning as expected
-    @GetMapping("")
-    public ResponseEntity<Iterable<Event>> getEvents() { //@RequestParam(required = false) String location) {
 
-        if (authUserRoles().contains("ROLE_ADMIN")) {
 
-            return ResponseEntity.ok(eventRepository.findAll());
-
-        }
+    @GetMapping("My")
+    public ResponseEntity<Iterable<Event>> getMyEvents() {
         return ResponseEntity.ok(authUser().getEvents());
     }
+
+    @GetMapping("Global")
+    public ResponseEntity<Iterable<Event>> getGlobalEvents() {
+        return ResponseEntity.ok(eventRepository.findAll());
+    }
+
+
 
     //functioning as expected
     @GetMapping("/{eventId}")

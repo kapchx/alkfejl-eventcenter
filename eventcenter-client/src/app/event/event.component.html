@@ -39,6 +39,25 @@
                 <mat-icon>add</mat-icon>
             </button>   
         </mat-action-row>
+        <mat-action-row>
+            <mat-chip-list >
+                <mat-chip color="primary" selected *ngFor="let participation of event.participations">
+                {{participation.username}}
+                <button 
+                    mat-icon-button 
+                    (click)="SetParticipationStatusToDenied(participation)"
+                >
+                    <mat-icon>cancel</mat-icon>
+                </button> 
+                <button 
+                    mat-icon-button 
+                    (click)="SetParticipationStatusToAccepted(participation)"
+                >
+                    <mat-icon>done</mat-icon>
+                </button> 
+                </mat-chip>
+            </mat-chip-list>
+        </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>
 

@@ -13,8 +13,12 @@ export class EventService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async getEvents(): Promise<Event[]> {
-    return await this.httpClient.get('/backend/events').toPromise() as Event[];
+  async getMyEvents(): Promise<Event[]> {
+    return await this.httpClient.get('/backend/events/My').toPromise() as Event[];
+  }
+
+  async getGlobalEvents(): Promise<Event[]> {
+    return await this.httpClient.get('/backend/events/Global').toPromise() as Event[];
   }
 
   async createEvent(event: Event): Promise<Event> {
