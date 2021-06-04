@@ -1,0 +1,74 @@
+<p>event works!</p>
+
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let event of events | async">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+               {{ event.title }}
+            </mat-panel-title>
+            <mat-panel-description *ngFor="let location of event.locations">
+                {{ location.name }}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>{{ event.description }}</p>
+        <mat-action-row>
+            <button 
+                mat-icon-button 
+                color="primary" 
+                (click) = "startEditEvent(event)"
+            >
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button 
+                mat-icon-button 
+                color="primary" 
+                [routerLink]="['/','events', event.id]"
+            >
+                <mat-icon>description</mat-icon>
+            </button>
+            <button 
+                mat-icon-button 
+                (click)="deleteEvent(event)"
+            >
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button 
+                mat-icon-button 
+                (click)="ParticipateToEvent(event)"
+            >
+                <mat-icon>add</mat-icon>
+            </button>   
+        </mat-action-row>
+        <mat-action-row>
+            <mat-chip-list >
+                <mat-chip color="primary" selected *ngFor="let participation of event.participations">
+                {{participation.username}}
+                <button 
+                    mat-icon-button 
+                    (click)="SetParticipationStatusToDenied(participation)"
+                >
+                    <mat-icon>cancel</mat-icon>
+                </button> 
+                <button 
+                    mat-icon-button 
+                    (click)="SetParticipationStatusToAccepted(participation)"
+                >
+                    <mat-icon>done</mat-icon>
+                </button> 
+                </mat-chip>
+            </mat-chip-list>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<button 
+    mat-fab
+    color="primary"
+    aria-label="Create new Event"
+    class="add-button"
+    (click) = "startCreateEvent()" 
+>
+    <mat-icon>add</mat-icon>
+</button>
+

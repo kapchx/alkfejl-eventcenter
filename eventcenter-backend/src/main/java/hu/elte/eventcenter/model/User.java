@@ -30,7 +30,7 @@ public class User {
 
     @Column
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String password;
 
     @Column

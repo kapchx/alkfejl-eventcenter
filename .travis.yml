@@ -1,0 +1,57 @@
+jobs:
+  include:
+
+  - stage: test
+    language: java
+    jdk: openjdk11
+    cache:
+      directories:
+        - $HOME/.m2
+
+    before_install: cd eventcenter-backend
+    install: true
+
+    script: mvn -B test  # mvn clean install is működne
+
+  - stage: test
+    language: node_js
+    node_js: node
+    addons:
+      apt:
+        sources:
+          - google-chrome
+        packages:
+          - google-chrome-stable
+    before_install: cd eventcenter-client
+    script: npm run test:ci
+
+  - stage: deploy1
+    language: java
+    jdk: openjdk11
+    cache:
+      directories:
+        - $HOME/.m2
+    before_install: cd eventcenter-backend
+    install: true
+    script: skip
+    deploy:
+      skip_cleanup: true
+      provider: heroku
+      api_key:
+        secure: "S0m3aIeLmMDuhtpO6McXGJo+ZiQsTFIbpWECTDpLO7F6dPTVuvBdl/8EupJhIy3lURe9PObV1qYIqBI+PdsHma4PVJLRoO+iw3oubnYz9ghrGJ/tbkeNr5dJvHM/vSV2z+kkzwZk5aLOjvpGqm4QELIHG1EmAC5p+70lHl4t44byu4+h/iWVrYH+CJRZYF4iKEaQMhAfQgVSVZEVHklIbkB7oXhpvYqRDHFKoYd1fJ06hn0XPziePjEQEtWiyIDuBjqJRraijdjPA6u1Kwi3/zrrl0PNTdDdSNeoSWQ7fHVCJVaQjQ/4GpVPRRgGfYlu5mG+oh9+867fnpP0bEVyTNtKqg/pK5s/7iwWWesc0Fr68x0Y1iiTVvUMNKOTj6xIdoBnAAf5UHcUyMQYf9Pi/k+DkWiUwTYIfW/vVqDbGflhKN7yVAlWF/15iU4o8V2d7rsdwALNHGB6yRLjeg2lIgD4rjYT0KN3ZvjfuvptyH9s0B0BhA/lpBFCQHJj+8htv7o+miU/Sn29xmvDZXkcliBLjmFL0/qHh5IA9TbHF7hTHbzNEnNxsVELXlVokRJ1o3ZLm9ogs3wOzacSDtnx7lTFSvZg5WIrp0BSAAUrS3VytJ7xfk0TVFggO2xcuQuZVFrTpalSpDkRPAGTdk9mHcZkNkOZMAIga3uFuGIVoNk="
+      app: fullstack-20-21-2-java
+      on: main
+
+  - stage: deploy2
+    language: node_js
+    node_js: node
+    before_install: cd eventcenter-client
+    script: skip
+    after_success: npm run build
+    deploy:
+      skip_cleanup: true
+      provider: heroku
+      api_key:
+        secure: 'S0m3aIeLmMDuhtpO6McXGJo+ZiQsTFIbpWECTDpLO7F6dPTVuvBdl/8EupJhIy3lURe9PObV1qYIqBI+PdsHma4PVJLRoO+iw3oubnYz9ghrGJ/tbkeNr5dJvHM/vSV2z+kkzwZk5aLOjvpGqm4QELIHG1EmAC5p+70lHl4t44byu4+h/iWVrYH+CJRZYF4iKEaQMhAfQgVSVZEVHklIbkB7oXhpvYqRDHFKoYd1fJ06hn0XPziePjEQEtWiyIDuBjqJRraijdjPA6u1Kwi3/zrrl0PNTdDdSNeoSWQ7fHVCJVaQjQ/4GpVPRRgGfYlu5mG+oh9+867fnpP0bEVyTNtKqg/pK5s/7iwWWesc0Fr68x0Y1iiTVvUMNKOTj6xIdoBnAAf5UHcUyMQYf9Pi/k+DkWiUwTYIfW/vVqDbGflhKN7yVAlWF/15iU4o8V2d7rsdwALNHGB6yRLjeg2lIgD4rjYT0KN3ZvjfuvptyH9s0B0BhA/lpBFCQHJj+8htv7o+miU/Sn29xmvDZXkcliBLjmFL0/qHh5IA9TbHF7hTHbzNEnNxsVELXlVokRJ1o3ZLm9ogs3wOzacSDtnx7lTFSvZg5WIrp0BSAAUrS3VytJ7xfk0TVFggO2xcuQuZVFrTpalSpDkRPAGTdk9mHcZkNkOZMAIga3uFuGIVoNk='
+      app: fullstack-20-21-2-client
+      on: main

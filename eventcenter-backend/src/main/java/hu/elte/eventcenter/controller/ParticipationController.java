@@ -1,7 +1,10 @@
 package hu.elte.eventcenter.controller;
 
+import hu.elte.eventcenter.model.Location;
 import hu.elte.eventcenter.model.Participation;
 import hu.elte.eventcenter.model.User;
+import hu.elte.eventcenter.model.Event;
+import hu.elte.eventcenter.repository.EventRepository;
 import hu.elte.eventcenter.repository.ParticipationRepository;
 import hu.elte.eventcenter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/participation")
+@RequestMapping("/participations")
 public class ParticipationController {
 
     @Autowired
@@ -26,6 +29,9 @@ public class ParticipationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Participation>> getEvents() { //@RequestParam(required = false) String location) {
@@ -46,28 +52,41 @@ public class ParticipationController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("")
     public ResponseEntity<Participation> participate(@RequestBody Participation participation) {
+
+        Optional<Event> optionalEvent = eventRepository.findById(participation.getEvent().getId());
+        if (optionalEvent.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        } else {
+
+            participation.setEvent(optionalEvent.get());
+        }
+
         participation.setApproval(Participation.Approval.APPLIED);
+        participation.setUser(authUser());
+        participation.setUsername(authUser().getUsername());
         participationRepository.save(participation);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(participation);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Participation> modifyApproval(@RequestBody Participation.Approval approval, @PathVariable Integer id){
+    public ResponseEntity<Participation> modifyApproval(@RequestBody Participation participation, @PathVariable Integer id){
         Optional<Participation> optionalParticipation = participationRepository.findById(id);
         if (optionalParticipation.isPresent()) {
             Participation editedParticipation = optionalParticipation.get();
-            editedParticipation.setApproval(approval);
+            editedParticipation.setApproval(participation.getApproval());
             participationRepository.save(editedParticipation);
             return ResponseEntity.ok(editedParticipation);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+    //itt maradtam
     @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Integer id) {
+    public ResponseEntity deleteParicipation(@PathVariable Integer id) {
         Optional<Participation> optionalParticipation = participationRepository.findById(id);
         if (optionalParticipation.isPresent()) {
             participationRepository.deleteById(id);
@@ -75,5 +94,19 @@ public class ParticipationController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public User authUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User user = optionalUser.get();
+        return user;
+    }
+
+    public List<String> authUserRoles() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        return roles;
     }
 }

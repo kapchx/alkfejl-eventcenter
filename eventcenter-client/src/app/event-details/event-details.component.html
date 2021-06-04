@@ -1,0 +1,11 @@
+<ng-container *ngIf="event">
+    <h1>{{ event.title }}</h1>
+    <h2> Description</h2>
+    <p>{{ event.description }}</p>
+    <h2>Location</h2>
+    <p *ngFor="let location of event.locations">
+        {{ location.name }}
+    </p>
+    <h2>Starts at</h2>
+    <p>{{ event.startAt }}</p>
+</ng-container>

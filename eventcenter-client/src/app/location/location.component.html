@@ -1,0 +1,30 @@
+<p>location works!</p>
+
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let location of locations | async">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+               {{ location.id }}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{ location.name }}
+            </mat-panel-description>
+            <button mat-icon-button (click)="deleteLocation(location)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<button 
+    mat-fab
+    color="primary"
+    aria-label="Create new Event"
+    class="add-button"
+    (click)="startCreateEvent()"
+>
+    <mat-icon>add</mat-icon>
+</button>
+
+<app-register></app-register>

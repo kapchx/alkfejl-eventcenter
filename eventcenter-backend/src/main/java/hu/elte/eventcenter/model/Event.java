@@ -41,14 +41,14 @@ public class Event {
     private LocalDateTime createdAt;
 
     @Column
-    private LocalDateTime startAt;
+    private String startAt;
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User organizer;
 
     @OneToMany(mappedBy = "event")
-    private List<Participation> participation;
+    private List<Participation> participations;
 
     @ManyToMany
     @JoinTable

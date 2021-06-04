@@ -1,0 +1,84 @@
+<h1 mat-dialog-title>Create Evenet</h1>
+
+<form mat-dialog-content [formGroup]="eventForm" (ngSubmit)= "submit()">
+
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input 
+            matInput 
+            type="text" 
+            name="title" 
+            required
+            minlength="2"
+            formControlName="title"
+        />
+        <mat-error *ngIf="title.invalid">
+           {{title.errors! | titleErrors}}
+        </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+            matInput  
+            name="description"
+            formControlName="description"
+        >
+        </textarea>
+    </mat-form-field>
+
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>startAt</mat-label>
+        <textarea
+            matInput  
+            name="startAt"
+            formControlName="startAt"
+        >
+        </textarea>
+    </mat-form-field>
+
+    
+        <mat-form-field class ="full-width" appearance="fill">
+            <mat-label>Location</mat-label>
+            <mat-select 
+                required 
+                matInput 
+                type="text" 
+                name="locations"
+                formControlName="locations"
+            >
+                <mat-option 
+                    *ngFor="let location of locations | async" 
+                    [value] =  "[location]"
+                >
+                    {{ location.name }}
+                </mat-option>
+                <button 
+                    [routerLink]="['/', 'locations']" 
+                    mat-button 
+                    color="primary"
+                    class ="full-width"
+                >
+                    <mat-icon>add</mat-icon>
+                    Add location
+                </button>
+            </mat-select>
+            <mat-error *ngIf="location.invalid">
+                {{location.errors! | locationErrors}}
+            </mat-error>
+        </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+    <button (click)="submit()" mat-flat-button color="primary">Submit</button>
+    <button 
+        *ngIf="dialogRef"
+        (click)="close()" 
+        mat-flat-button 
+        color="secondary" 
+        type="button"
+    >
+        Cancel
+    </button>
+</div>
+

@@ -19,6 +19,7 @@ public class LocationController {
         this.locationRepository = locationRepository;
     }
 
+    //functioning as expected
     @GetMapping("")
     public Iterable<Location> getLocations(@RequestParam Optional<String> name) {
         Iterable<Location> locations;
@@ -30,27 +31,31 @@ public class LocationController {
         return locations;
     }
 
-    @Secured({ "ROLE_ADMIN" })
+    //functioning as expected
+    //@Secured({ "ROLE_ADMIN" })
     @PostMapping("")
-    public ResponseEntity<Location> createLocation(@RequestBody Location location){
+    public ResponseEntity<Location> postLocation(@RequestBody Location location){
         Optional<Location> optionalLocation = locationRepository.findOneByNameEqualsIgnoreCase(location.getName());
         if (optionalLocation.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(optionalLocation.get());
         }
-        Location createdLocation = locationRepository.save(location);
-        return ResponseEntity.ok(createdLocation);
+        Location postedLocation = locationRepository.save(location);
+        return ResponseEntity.ok(postedLocation);
     }
 
+    //functioning as expected
     @Secured({ "ROLE_ADMIN" })
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteLocation(@PathVariable Integer id){
-        Optional<Location> optionalLocation = locationRepository.findById(id);
-        if (optionalLocation.isPresent()) {
-            locationRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else {
+    @DeleteMapping("/{locationId}")
+    public ResponseEntity deleteLocation(@PathVariable Integer locationId){
+
+        Optional<Location> optionalLocation = locationRepository.findById(locationId);
+
+        if (!optionalLocation.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+
+        locationRepository.deleteById(locationId);
+        return ResponseEntity.ok().build();
 
     }
 }

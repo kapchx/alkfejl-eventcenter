@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Add Location</h1>
+
+<form mat-dialog-content [formGroup]="locationForm" (ngSubmit)= "submit()">
+
+    <mat-form-field class ="full-width" appearance="fill">
+        <mat-label>name</mat-label>
+        <input 
+            matInput 
+            type="text" 
+            name="name" 
+            required
+            minlength="2"
+            formControlName="name"
+        />
+    </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+    <button 
+        (click)="submit()" 
+        mat-flat-button 
+        color="primary"
+    >
+        Submit
+    </button>
+
+    <button 
+        *ngIf="dialogRef"
+        (click)="close()" 
+        mat-flat-button 
+        color="secondary" 
+        type="button"
+    >
+        Cancel
+    </button>
+</div>
