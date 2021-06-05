@@ -13,6 +13,20 @@ jobs:
 
     script: mvn -B test  # mvn clean install is működne
 
+    - stage: deploy2
+    language: node_js
+    node_js: node
+    before_install: cd eventcenter-client
+    script: skip
+    after_success: npm run build
+    deploy:
+      skip_cleanup: true
+      provider: heroku
+      api_key:
+         secure: "i+XZ6hUb8hm8f5JfHrtspceZRl2mcVzteQH8B3S3zaPVAiJ/BwwdxtSkrT6RgTY6HUcxjtmjwd139GUcJHnSBkMsZbHouYm7fuSNMWCIOIfosslWHx/JFiOnorww2ct4F+/SXxykBQRe4elmBPlUqbKmucXJx3ZNXt6x24ZDR/6Ak/gmeKgKRPYaLDKYYyI9UX9cJcbNmEflOp/cDFLQx0LSRQ9JkZnO+97zJ1632y5yqBaa1d0EeJ/kKtFfqoGjxiyq4zfbmHMGV8bNmD/nN7TrvcceWqzFAGr6L4+iHecVAJjqSIRK/ypEs1ZPFFYBvBkQltypV2dVQtr11cf80amc7m+fKtZIsdxSlP9ifN9G/9avGpDzq8H+VIYxyZcz2QaJzxeoprGhpYv5zaZvMyR2EreU1qRrf8EIWzG7ewfX0eqxLBm1YUoL7yD968bjhX/skZhBIPbMBKojZiSzb7O/A3b6lC8zCpBRNl1r1ah2KOHe6ikvoTLEh8udvE0trEYhBIL1zuLmwRxVIw6KI1XS67e06123b+I4uVCeAtIyf/YtfnfuxHWadEvrJLONdamB5grOupTFjh6Y9Ep5h4GLkYCE1rseMisxWT2ao8DirVcXBWS75hMRL5q/7KODVDbPgRuMYbm9NSaCP3BfWWqfWK0uiT0Lq3hNPGdiXXc="
+      app: eventcenter-client
+      on: main
+
   - stage: deploy1
     language: java
     jdk: openjdk11
@@ -30,16 +44,4 @@ jobs:
       app: eventcenter-backend
       on: main
 
-  - stage: deploy2
-    language: node_js
-    node_js: node
-    before_install: cd eventcenter-client
-    script: skip
-    after_success: npm run build
-    deploy:
-      skip_cleanup: true
-      provider: heroku
-      api_key:
-         secure: "i+XZ6hUb8hm8f5JfHrtspceZRl2mcVzteQH8B3S3zaPVAiJ/BwwdxtSkrT6RgTY6HUcxjtmjwd139GUcJHnSBkMsZbHouYm7fuSNMWCIOIfosslWHx/JFiOnorww2ct4F+/SXxykBQRe4elmBPlUqbKmucXJx3ZNXt6x24ZDR/6Ak/gmeKgKRPYaLDKYYyI9UX9cJcbNmEflOp/cDFLQx0LSRQ9JkZnO+97zJ1632y5yqBaa1d0EeJ/kKtFfqoGjxiyq4zfbmHMGV8bNmD/nN7TrvcceWqzFAGr6L4+iHecVAJjqSIRK/ypEs1ZPFFYBvBkQltypV2dVQtr11cf80amc7m+fKtZIsdxSlP9ifN9G/9avGpDzq8H+VIYxyZcz2QaJzxeoprGhpYv5zaZvMyR2EreU1qRrf8EIWzG7ewfX0eqxLBm1YUoL7yD968bjhX/skZhBIPbMBKojZiSzb7O/A3b6lC8zCpBRNl1r1ah2KOHe6ikvoTLEh8udvE0trEYhBIL1zuLmwRxVIw6KI1XS67e06123b+I4uVCeAtIyf/YtfnfuxHWadEvrJLONdamB5grOupTFjh6Y9Ep5h4GLkYCE1rseMisxWT2ao8DirVcXBWS75hMRL5q/7KODVDbPgRuMYbm9NSaCP3BfWWqfWK0uiT0Lq3hNPGdiXXc="
-      app: eventcenter-client
-      on: main
+  
