@@ -3,9 +3,7 @@ import { Event } from '../domain/event'
 import { EventService } from '../core/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EventEditorComponent } from '../event-editor/event-editor.component';
-import { User } from '../domain/user';
 import { Participation } from '../domain/paticipation';
-import { Approval } from '../domain/paticipation';
 import { ParticipationService } from '../core/participation.service';
 import { AuthService } from '../core/auth.service';
 

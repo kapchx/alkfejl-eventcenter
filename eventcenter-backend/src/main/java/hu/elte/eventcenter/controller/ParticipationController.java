@@ -34,22 +34,8 @@ public class ParticipationController {
     private EventRepository eventRepository;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Participation>> getEvents() { //@RequestParam(required = false) String location) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        List<String> roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-
-        if (roles.contains("ROLE_ADMIN")) {
-            return ResponseEntity.ok(participationRepository.findAll());
-        }
-
-        String username = auth.getName();
-        Optional<User> user = userRepository.findByUsername(username);
-        Iterable<Participation> participations;
-        participations = participationRepository.findAll();
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get().getParticipation());
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Iterable<Participation>> getParticipations() { //@RequestParam(required = false) String location) {
+            return ResponseEntity.ok(authUser().getParticipation());
     }
 
     @PostMapping("")
@@ -66,6 +52,8 @@ public class ParticipationController {
         participation.setApproval(Participation.Approval.APPLIED);
         participation.setUser(authUser());
         participation.setUsername(authUser().getUsername());
+        participation.setEventname(participation.getEvent().getTitle());
+
         participationRepository.save(participation);
         return ResponseEntity.ok(participation);
     }
@@ -84,7 +72,6 @@ public class ParticipationController {
     }
 
     //itt maradtam
-    @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
     public ResponseEntity deleteParicipation(@PathVariable Integer id) {
         Optional<Participation> optionalParticipation = participationRepository.findById(id);

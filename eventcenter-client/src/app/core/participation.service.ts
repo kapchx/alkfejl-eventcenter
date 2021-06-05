@@ -17,6 +17,10 @@ export class ParticipationService {
     return await this.httpClient.post('/backend/participations', {event:paricipationEvent}).toPromise() as Participation;
   }
 
+  async getParticipations(): Promise<Participation[]> {
+    return await this.httpClient.get('/backend/participations').toPromise() as Participation[];
+  }
+
   async SetParticipationStatusToAccepted(participationToEdit: Participation): Promise<Participation>{
     return await this.httpClient.patch(`/backend/participations/${participationToEdit.id}`, {approval: Approval.ACCEPTED}).toPromise() as Participation;
   }
@@ -24,7 +28,7 @@ export class ParticipationService {
     return await this.httpClient.patch(`/backend/participations/${participationToEdit.id}`, {approval: Approval.REJECTED}).toPromise() as Participation;
   }
 
-  async deleteLocation(participationToDelete: Participation): Promise<void> {
+  async deleteParticipation(participationToDelete: Participation): Promise<void> {
       await this.httpClient.delete(`/backend/participations/${participationToDelete.id}`).toPromise();
   }
 }

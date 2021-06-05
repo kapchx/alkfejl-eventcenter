@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     await this.authService.login(this.form.value);
-    this.router.navigate(['/events']);
+    this.router.navigate(['/global-events']);
   }
 
 }

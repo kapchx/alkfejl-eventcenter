@@ -32,6 +32,7 @@ import { UserEditorComponent } from './user-editor/user-editor.component';
 import { EventsComponent } from './events/events.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import { ParticipationComponent } from './participation/participation.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatChipsModule} from '@angular/material/chips';
     RegisterComponent,
     UserEditorComponent,
     EventsComponent,
+    ParticipationComponent,
   ],
   imports: [
     BrowserModule,

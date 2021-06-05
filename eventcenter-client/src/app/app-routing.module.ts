@@ -6,6 +6,7 @@ import { EventComponent } from './event/event.component';
 import { EventsComponent } from './events/events.component';
 import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
+import { ParticipationComponent } from './participation/participation.component';
 import { RegisterComponent } from './register/register.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 
@@ -34,6 +35,9 @@ const routes: Routes = [{
 },{
   path: 'Profile_Settings',
   component: UserEditorComponent
+},{
+  path: 'participations',
+  component: ParticipationComponent
 },{
   path: '**',
   redirectTo: '/events'

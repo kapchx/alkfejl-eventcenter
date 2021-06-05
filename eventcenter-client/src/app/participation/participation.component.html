@@ -1,0 +1,19 @@
+<h1>My Participations</h1>
+
+<mat-accordion >
+    <mat-expansion-panel  *ngFor="let participation of participations | async">
+        <mat-expansion-panel-header >
+            <mat-panel-title>
+               {{ participation.eventname }}
+            </mat-panel-title>
+            <button 
+                mat-icon-button 
+                (click)="deleteParticipation(participation)"
+            >
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+</mat-accordion>
+
+

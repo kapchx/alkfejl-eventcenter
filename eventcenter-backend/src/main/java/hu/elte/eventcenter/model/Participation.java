@@ -26,6 +26,9 @@ public class Participation {
     private String username;
 
     @Column
+    private String eventname;
+
+    @Column
     @CreationTimestamp
     private LocalDateTime createdAt;
 
