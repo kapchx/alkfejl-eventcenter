@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>Create Evenet</h1>
+
+
+
+<div *ngIf="geteventTOEdit(); else elseBlock"><h1 mat-dialog-title>Edit Evenet</h1></div>
+<ng-template #elseBlock><h1 mat-dialog-title>Create Evenet</h1></ng-template>
+
 
 <form mat-dialog-content [formGroup]="eventForm" (ngSubmit)= "submit()">
 

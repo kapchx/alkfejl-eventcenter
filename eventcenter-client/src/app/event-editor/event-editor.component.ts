@@ -45,10 +45,15 @@ export class EventEditorComponent implements OnInit {
     if(this.eventToEdit){
       this.eventForm.reset({
         title: this.eventToEdit.title,
-        descriptions: this.eventToEdit.description,
-        locations: this.eventToEdit.locations
+        description: this.eventToEdit.description,
+        locations: this.eventToEdit.locations,
+        startAt: this.eventToEdit.startAt
       })
     }
+  }
+
+  geteventTOEdit(): Event | undefined{
+    return this.eventToEdit;
   }
 
   async submit() : Promise<void> {
