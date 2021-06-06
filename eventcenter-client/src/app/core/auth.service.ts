@@ -31,15 +31,6 @@ export class AuthService {
     return this.currentUser as User;
   }
 
-  public getCurrentUser(): User {
-   /* const ru : User = {id: this.currentUser!.id,
-      name: this.currentUser!.name,
-      username: this.currentUser!.username,
-      password: 'string',
-      role: UserRole.ROLE_GUEST}*/
-    return this.user1;
-  }
-
 
   private currentToken: string | null = null;
 

@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node ./dist/server/server.js",
+    "start:dev": "ng serve",
+    "build": "ng build && tsc -p tsconfig.server.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

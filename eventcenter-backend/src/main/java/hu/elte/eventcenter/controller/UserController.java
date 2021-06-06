@@ -75,8 +75,9 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Integer id) {
+    @DeleteMapping("")
+    public ResponseEntity deleteUser() {
+        Integer id  = 2;
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
 

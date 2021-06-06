@@ -1,7 +1,9 @@
 package hu.elte.eventcenter;
 
 import hu.elte.eventcenter.model.Event;
+import hu.elte.eventcenter.model.Participation;
 import hu.elte.eventcenter.model.User;
+import hu.elte.eventcenter.model.Location;
 import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import org.json.JSONObject;
@@ -62,6 +64,33 @@ public class EventControllerRestTest {
             System.out.println("Test 2");
             HttpEntity requestEntity = getRequestEntityForUser("user", "user");
             ResponseEntity<List<Event>> response = restTemplate.exchange("http://localhost:" + port + "/events/Global", HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Event>>() {});
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody().size()).isEqualTo(2);
+        }
+
+        @Test
+        public void shouldReturnAllLocations() throws Exception {
+            System.out.println("Test 3");
+            HttpEntity requestEntity = getRequestEntityForUser("user", "user");
+            ResponseEntity<List<Location>> response = restTemplate.exchange("http://localhost:" + port + "/locations", HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Location>>() {});
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody().size()).isEqualTo(2);
+        }
+
+        @Test
+        public void shouldReturnAllParticipations() throws Exception {
+            System.out.println("Test 4");
+            HttpEntity requestEntity = getRequestEntityForUser("user", "user");
+            ResponseEntity<List<Participation>> response = restTemplate.exchange("http://localhost:" + port + "/locations", HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Participation>>() {});
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody().size()).isEqualTo(2);
+        }
+
+        @Test
+        public void shouldReturnAllUsers() throws Exception {
+            System.out.println("Test 5");
+            HttpEntity requestEntity = getRequestEntityForUser("admin", "admin");
+            ResponseEntity<List<User>> response = restTemplate.exchange("http://localhost:" + port + "/users", HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<User>>() {});
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
             assertThat(response.getBody().size()).isEqualTo(2);
         }

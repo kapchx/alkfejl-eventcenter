@@ -17,14 +17,6 @@ export class UserEditorComponent implements OnInit {
     password: ['', Validators.required],
   });
 
-  get username(): AbstractControl {
-    return this.userForm.get('username') as AbstractControl;
-  }
-
-  get password(): AbstractControl {
-    return this.userForm.get('password') as AbstractControl;
-  }
-
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -42,6 +34,10 @@ export class UserEditorComponent implements OnInit {
         await this.authService.login(this.userForm.value);
         this.router.navigate(['/Events']);
     }
+  }
+
+  async deleteUser(): Promise<void> {
+    await this.userService.deleteUser();
   }
 
 }

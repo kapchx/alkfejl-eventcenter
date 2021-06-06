@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../core/auth.service';
 import { UserService } from '../core/user.service';
 
 @Component({
@@ -16,14 +15,6 @@ export class RegisterComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
-
-  get username(): AbstractControl {
-    return this.userForm.get('username') as AbstractControl;
-  }
-
-  get password(): AbstractControl {
-    return this.userForm.get('password') as AbstractControl;
-  }
 
   constructor(
     private fb: FormBuilder,
