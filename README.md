@@ -1,3 +1,4 @@
+main: ![](https://api.travis-ci.com/kapchx/alkfejl-eventcenter.svg?token=yK894ErRySpzzmBVJwJG)
 # alkfejl-eventcenter
 Célunk egy webes eseménykezelő alkalmazás létrehozása, mellyel események szervezhetők, és azokra jelentkezni lehet. (Pl. délutáni focihoz csapat létrehozása, csoportos jegy a Korona Fesztiválra, stb.)  
 Az eseményekhez kommentek fűzhetők, segítve a szervező, illetve a résztvevők közötti kommunikációt. Egy esemény akár több helyszínt és érinthet, így szélesebb körű események (pl. egyetemi vegán-nap) szervezsére is használható
