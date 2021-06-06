@@ -1,5 +1,6 @@
 package hu.elte.eventcenter.controller;
 
+import hu.elte.eventcenter.model.Event;
 import hu.elte.eventcenter.model.Location;
 import hu.elte.eventcenter.repository.LocationRepository;
 import org.apache.coyote.Response;
@@ -21,18 +22,10 @@ public class LocationController {
 
     //functioning as expected
     @GetMapping("")
-    public Iterable<Location> getLocations(@RequestParam Optional<String> name) {
-        Iterable<Location> locations;
-        if(name.isPresent()) {
-            locations = locationRepository.findTop10ByNameContains(name.get());
-        } else {
-            locations = locationRepository.findTop10ByNameContains("");
-        }
-        return locations;
+    public ResponseEntity<Iterable<Location>> getLocations() {
+        return ResponseEntity.ok(locationRepository.findAll());
     }
 
-    //functioning as expected
-    //@Secured({ "ROLE_ADMIN" })
     @PostMapping("")
     public ResponseEntity<Location> postLocation(@RequestBody Location location){
         Optional<Location> optionalLocation = locationRepository.findOneByNameEqualsIgnoreCase(location.getName());
@@ -43,7 +36,6 @@ public class LocationController {
         return ResponseEntity.ok(postedLocation);
     }
 
-    //functioning as expected
     @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{locationId}")
     public ResponseEntity deleteLocation(@PathVariable Integer locationId){

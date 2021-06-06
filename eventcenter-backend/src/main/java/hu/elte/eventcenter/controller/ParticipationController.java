@@ -58,6 +58,7 @@ public class ParticipationController {
         return ResponseEntity.ok(participation);
     }
 
+
     @PatchMapping("/{id}")
     public ResponseEntity<Participation> modifyApproval(@RequestBody Participation participation, @PathVariable Integer id){
         Optional<Participation> optionalParticipation = participationRepository.findById(id);
@@ -71,7 +72,7 @@ public class ParticipationController {
         }
     }
 
-    //itt maradtam
+    @Secured({ "ROLE_ADMIN" })
     @DeleteMapping("/{id}")
     public ResponseEntity deleteParicipation(@PathVariable Integer id) {
         Optional<Participation> optionalParticipation = participationRepository.findById(id);

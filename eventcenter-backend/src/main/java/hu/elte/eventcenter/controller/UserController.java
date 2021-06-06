@@ -77,9 +77,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id) {
-
         Optional<User> optionalUser = userRepository.findById(id);
-
         if (optionalUser.isPresent()) {
 
             userRepository.deleteById(id);
@@ -91,6 +89,7 @@ public class UserController {
 
         }
     }
+
     public User authUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();

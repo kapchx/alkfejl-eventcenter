@@ -54,9 +54,6 @@ public class EventController {
         return ResponseEntity.ok(eventRepository.findAll());
     }
 
-
-
-    //functioning as expected
     @GetMapping("/{eventId}")
     public ResponseEntity<Event> getEventById(@PathVariable Integer eventId) {
 
@@ -76,7 +73,6 @@ public class EventController {
         return ResponseEntity.ok(optionalEvent.get());
     }
 
-    //functioning as expected
     @PostMapping("")
     public ResponseEntity<Event> postEvent(@RequestBody Event event) {
 
@@ -104,7 +100,6 @@ public class EventController {
         return ResponseEntity.ok(savedEvent);
     }
 
-    //functioning as expected
     @PatchMapping("/{id}")
     public ResponseEntity<Event> pachEvent(@RequestBody Event event, @PathVariable Integer id) {
 
@@ -196,7 +191,7 @@ public class EventController {
         return ResponseEntity.ok(optionalEvent.get().getLocations());
 
     }
-
+/*
     //functioning as expected
     @PostMapping("/{id}/locations")
     public ResponseEntity<Location> postEventLocation(@PathVariable Integer id, @RequestBody Location location) {
@@ -257,6 +252,8 @@ public class EventController {
         return ResponseEntity.ok(newLocations);
 
     }
+
+ */
 
     public User authUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
