@@ -66,14 +66,14 @@ public class EventControllerRestTest {
             assertThat(response.getBody().size()).isEqualTo(2);
         }
 
-        @Test
+        /*@Test
         public void shouldReturnTheSecondEventAsString() throws Exception {
             System.out.println("Test 3");
             HttpEntity requestEntity = getRequestEntityForUser("user", "user");
             ResponseEntity<String> response = restTemplate.exchange("http://localhost:" + port + "/events/2", HttpMethod.GET, requestEntity, String.class);
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
             JSONAssert.assertEquals("{title:Budapest Zoo & Botanical Garden,description:The Budapest Zoo, built in 1866, is the oldest and largest zoo park of Hungary}", response.getBody(), false);
-        }
+        }*/
 
 
 }
