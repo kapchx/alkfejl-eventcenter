@@ -1,5 +1,5 @@
-<p>Profile Settings</p>
-
+<h1>Profile Settings</h1>
+<h2>Edit Profile</h2>
 <form [formGroup]="userForm" (submit)="submit()">
     <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
@@ -39,6 +39,7 @@
   </div>
 </form>
 
+<h2>Delete Profile</h2>
 <div class="buttons">
   <button mat-raised-button color="primary" (click) = "deleteUser()">Delete</button>
 </div>

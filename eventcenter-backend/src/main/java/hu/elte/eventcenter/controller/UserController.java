@@ -3,6 +3,8 @@ package hu.elte.eventcenter.controller;
 import hu.elte.eventcenter.model.Event;
 import hu.elte.eventcenter.model.Participation;
 import hu.elte.eventcenter.model.User;
+import hu.elte.eventcenter.repository.EventRepository;
+import hu.elte.eventcenter.repository.ParticipationRepository;
 import hu.elte.eventcenter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    private EventRepository eventRepository;
+    private ParticipationRepository participationRepository;
 
     @Secured({ "ROLE_ADMIN" })
     @GetMapping("")
@@ -77,11 +81,9 @@ public class UserController {
 
     @DeleteMapping("")
     public ResponseEntity deleteUser() {
-        Integer id  = 2;
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(authUser().getId());
         if (optionalUser.isPresent()) {
-
-            userRepository.deleteById(id);
+            userRepository.deleteById(optionalUser.get().getId());
             return ResponseEntity.ok().build();
 
         } else {

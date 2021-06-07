@@ -38,6 +38,7 @@ export class UserEditorComponent implements OnInit {
 
   async deleteUser(): Promise<void> {
     await this.userService.deleteUser();
+    this.router.navigate(['/login']);
   }
 
 }

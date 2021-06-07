@@ -47,7 +47,7 @@ public class Event {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User organizer;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)
     private List<Participation> participations;
 
     @ManyToMany

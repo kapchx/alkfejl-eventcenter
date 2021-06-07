@@ -55,14 +55,14 @@ export class EventComponent implements OnInit {
     this.getEvents();
   }
 
-  async ParticipateToEvent(event: Event): Promise<void>{
-    await this.participationService.createParticipation(event);
-  }
   async SetParticipationStatusToAccepted(participationToEdit: Participation): Promise<void>{
     await this.participationService.SetParticipationStatusToAccepted(participationToEdit);
+    this.getEvents();
   }
+
   async SetParticipationStatusToDenied(participationToEdit: Participation): Promise<void>{
     await this.participationService.SetParticipationStatusToDenied(participationToEdit);
+    this.getEvents();
   }
 
 }

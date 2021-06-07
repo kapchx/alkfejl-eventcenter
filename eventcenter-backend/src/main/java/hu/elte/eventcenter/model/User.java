@@ -41,9 +41,9 @@ public class User {
         ROLE_GUEST, ROLE_USER, ROLE_ADMIN
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Participation> participation;
 
-    @OneToMany(mappedBy = "organizer")
+    @OneToMany(mappedBy = "organizer", cascade = CascadeType.REMOVE)
     private List<Event> events;
 }

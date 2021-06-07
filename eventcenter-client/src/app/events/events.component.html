@@ -16,17 +16,22 @@
         </mat-card-content>
 
         <mat-card-actions>
+
             <button 
                 mat-icon-button 
                 (click)="ParticipateToEvent(event)"
             >
                 <mat-icon>add</mat-icon>
-            </button>   
-            <mat-chip-list >
-                <mat-chip *ngFor="let participation of event.participations">
-                {{participation.username}}
-                </mat-chip>
+            </button> 
+
+            <mat-chip-list >  
+                <div *ngFor="let participation of event.participations">
+                    <mat-chip color="primary" selected >
+                       {{participation.username}}  {{participation.approval}}
+                    </mat-chip>
+                </div>
             </mat-chip-list>
+            
         </mat-card-actions>
     </mat-card>
     

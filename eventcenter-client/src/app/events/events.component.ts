@@ -5,6 +5,7 @@ import { EventService } from '../core/event.service';
 import { ParticipationService } from '../core/participation.service';
 import { EventEditorComponent } from '../event-editor/event-editor.component';
 import { Event } from '../domain/event'
+import { Approval} from '../domain/paticipation';
 
 @Component({
   selector: 'app-events',
@@ -14,16 +15,19 @@ import { Event } from '../domain/event'
 export class EventsComponent implements OnInit {
 
   events!: Promise<Event[]>;
+  approval!: Approval;
   
 
   constructor(
     private eventService: EventService,
     private participationService: ParticipationService,
+   
   ) { }
 
   ngOnInit(): void {
     this.getEvents();
     console.log(this.events)
+    this.approval = Approval.ACCEPTED;
   }
 
   private getEvents(): void {

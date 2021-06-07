@@ -28,21 +28,16 @@
             </button>
             <button 
                 mat-icon-button 
+                color="primary" 
                 (click)="deleteEvent(event)"
             >
                 <mat-icon>delete</mat-icon>
-            </button>
-            <button 
-                mat-icon-button 
-                (click)="ParticipateToEvent(event)"
-            >
-                <mat-icon>add</mat-icon>
-            </button>   
+            </button> 
         </mat-action-row>
         <mat-action-row>
             <mat-chip-list >
                 <mat-chip color="primary" selected *ngFor="let participation of event.participations">
-                {{participation.username}}
+                {{participation.username}}  {{participation.approval}}
                 <button 
                     mat-icon-button 
                     (click)="SetParticipationStatusToDenied(participation)"
